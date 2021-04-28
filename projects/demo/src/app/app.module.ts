@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     ErrorValidationModule
       .forRoot({
+        maxErrors: 1,
         messages: {
           required: 'Required field!',
           email: 'Invalid Email!',
