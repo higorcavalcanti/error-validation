@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LibComponent } from './lib.component';
+import { ControlErrorsComponent } from './control-errors.component';
 
-describe('LibComponent', () => {
-  let component: LibComponent;
-  let fixture: ComponentFixture<LibComponent>;
+describe('ControlErrorsComponent', () => {
+  let component: ControlErrorsComponent;
+  let fixture: ComponentFixture<ControlErrorsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LibComponent ]
+      declarations: [ ControlErrorsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LibComponent);
+    fixture = TestBed.createComponent(ControlErrorsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

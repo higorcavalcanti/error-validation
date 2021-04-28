@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+  <div>
+    <label for="input1">No Validation</label>
+    <input type="text" formControlName="input1" id="input1"/>
+  </div>
+
+  <div>
+    <label for="input2">Required</label>
+    <input type="text" formControlName="input2" id="input2"/>
+  </div>
+
+  <div>
+    <label for="input3">Min 10</label>
+    <input type="number" formControlName="input3" id="input3"/>
+  </div>
+
+  <div>
+    <label for="input4">Email, Minlenght 10</label>
+    <input type="text" formControlName="input4" id="input4"/>
+  </div>
+
+  <div>
+    <button type="button" (click)="validate()">Validar</button>
+  </div>
+</form>

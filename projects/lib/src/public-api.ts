@@ -2,6 +2,10 @@
  * Public API Surface of lib
  */
 
-export * from './lib/lib.service';
-export * from './lib/lib.component';
-export * from './lib/lib.module';
+export * from './error-validation.module';
+
+export * from './components';
+export * from './configs';
+export * from './directives';
+// export * from './models';
+
