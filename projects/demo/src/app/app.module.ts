@@ -13,11 +13,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     ErrorValidationModule
       .forRoot({
-        maxErrors: 1,
         messages: {
           required: 'Required field!',
           email: 'Invalid Email!',
-          min: (error) => `Value ${error.actual} must be higher than ${error.min}`,
+          min: ({ actual, min }) => `Value ${actual} must be higher than ${min}`,
           minlength: 'minlength error message',
         }
       })
