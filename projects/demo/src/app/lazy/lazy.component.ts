@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-lazy',
+  templateUrl: './lazy.component.html',
+  styleUrls: ['./lazy.component.css']
 })
-export class AppComponent implements OnInit {
+export class LazyComponent implements OnInit {
 
   form: FormGroup;
 

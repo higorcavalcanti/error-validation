@@ -21,19 +21,14 @@ import { ErrorValidationConfig } from './configs';
   exports: [
     ControlErrorValidationDirective
   ],
-  providers: [
-    { provide: ErrorValidationConfig, useValue: new ErrorValidationConfig()}
-  ]
 })
 export class ErrorValidationModule {
-
-  static defaultConfig: ErrorValidationConfig = new ErrorValidationConfig();
 
   static forRoot(config?: Partial<ErrorValidationConfig>): ModuleWithProviders<ErrorValidationModule> {
     return {
       ngModule: ErrorValidationModule,
       providers: [
-        { provide: ErrorValidationConfig, useValue: new ErrorValidationConfig(config)}
+        { provide: ErrorValidationConfig, useValue: new ErrorValidationConfig(config) }
       ]
     };
   }
