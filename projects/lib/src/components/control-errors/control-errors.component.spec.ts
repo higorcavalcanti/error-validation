@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ControlErrorsComponent } from './control-errors.component';
+import { ErrorValidationConfig } from '../../configs';
 
 describe('ControlErrorsComponent', () => {
   let component: ControlErrorsComponent;
@@ -8,7 +9,10 @@ describe('ControlErrorsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ControlErrorsComponent ]
+      declarations: [ ControlErrorsComponent ],
+      providers: [
+        { provide: ErrorValidationConfig, useValue: new ErrorValidationConfig() }
+      ]
     })
     .compileComponents();
   });
