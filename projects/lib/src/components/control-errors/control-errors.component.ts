@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { ErrorValidationConfig, ErrorValidationMessage } from '../../configs';
+import { ErrorValidationConfig, ErrorValidationMessage, ErrorValidationMessages } from '../../configs';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -14,14 +14,17 @@ export class ControlErrorsComponent {
   control: AbstractControl;
   errors: string[];
 
+  formMessages: ErrorValidationMessages;
+  controlMessages: ErrorValidationMessages;
+
   constructor(
     private config: ErrorValidationConfig,
     private cdr: ChangeDetectorRef,
   ) { }
 
-  check(): void {
+  detectChanges(): void {
     this.errors = this.getErrorsFromControl( this.control );
-    this.cdr.markForCheck();
+    this.cdr.detectChanges();
   }
 
   getErrorsFromControl(control: AbstractControl): string[] {
@@ -37,7 +40,10 @@ export class ControlErrorsComponent {
   }
 
   getErrorMessage(error: any): string {
-    const message: ErrorValidationMessage = this.config?.messages?.[ error.key ];
+    const message: ErrorValidationMessage =
+      this.controlMessages?.[ error.key ] ??
+      this.formMessages?.[ error.key ] ??
+      this.config?.messages?.[ error.key ];
 
     if ( typeof message === 'string' ) {
       return message;

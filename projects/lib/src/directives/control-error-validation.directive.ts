@@ -1,12 +1,36 @@
-import { ComponentFactoryResolver, ComponentRef, Directive, DoCheck, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import {
+  ComponentFactoryResolver,
+  ComponentRef,
+  Directive,
+  DoCheck,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+  ViewContainerRef
+} from '@angular/core';
 import { AbstractControl, NgControl } from '@angular/forms';
 import { ControlErrorsComponent } from '../components';
+import { ErrorValidationMessages } from '../configs';
 
+// tslint:disable-next-line:no-conflicting-lifecycle
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[formControlName], [formControl], [ngModel]'
+  selector: '' +
+    '[formControlName]:not([ignoreErrorValidation]),' +
+    '[formControl]:not([ignoreErrorValidation]),' +
+    '[formArrayName]:not([ignoreErrorValidation]),' +
+    '[formArray]:not([ignoreErrorValidation]),' +
+    '[ngModel]:not([ignoreErrorValidation])',
 })
-export class ControlErrorValidationDirective implements OnInit, OnDestroy, DoCheck {
+export class ControlErrorValidationDirective implements OnInit, OnDestroy, OnChanges, DoCheck {
+
+  @Input() errorValidation: any;
+  @Input() errorValidationMessages: ErrorValidationMessages;
+
+  formValidationMessages: ErrorValidationMessages;
 
   private componentRef: ComponentRef<ControlErrorsComponent>;
 
@@ -17,26 +41,70 @@ export class ControlErrorValidationDirective implements OnInit, OnDestroy, DoChe
   ) { }
 
   ngOnInit(): void {
-    this.createComponent();
+    // this.initValidate();
   }
 
   ngOnDestroy(): void {
-    this.destroyComponent();
+    this.stopValidate();
   }
 
   ngDoCheck(): void {
-    this.componentRef?.instance?.check();
+    this.componentDetectChanges();
   }
 
-  createComponent(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    this.checkErrorValidationChanges( changes.errorValidation );
+
+    if ( 'errorValidationMessages' in changes ) {
+      this.setControlMessages();
+    }
+  }
+
+  checkErrorValidationChanges(errorValidation: SimpleChange): void {
+    if ( errorValidation?.currentValue != null && errorValidation?.previousValue == null ) {
+      this.initValidate();
+    } else if ( errorValidation?.currentValue == null && errorValidation?.previousValue != null ) {
+      this.stopValidate();
+    }
+  }
+
+  initValidate(): void {
+    if ( this.componentRef ) {
+      return;
+    }
+
     this.viewContainer.clear();
     const factory = this.componentFactoryResolver.resolveComponentFactory(ControlErrorsComponent);
     this.componentRef = this.viewContainer.createComponent(factory);
     this.componentRef.instance.control = this.control.control as AbstractControl;
+    this.componentRef.instance.formMessages = this.formValidationMessages;
+    this.componentRef.instance.controlMessages = this.errorValidationMessages;
   }
 
-  destroyComponent(): void {
-    this.componentRef.destroy();
+  stopValidate(): void {
+    this.componentRef?.destroy();
+  }
+
+  componentDetectChanges(): void {
+    this.componentRef?.instance?.detectChanges();
+  }
+
+  setControlMessages(): void {
+    if ( !this.componentRef ) {
+      return;
+    }
+    this.componentRef.instance.controlMessages = this.errorValidationMessages;
+  }
+
+  setFormMessages(messages: ErrorValidationMessages): void {
+    console.log('setFormMessages', messages);
+    this.formValidationMessages = messages;
+
+    if ( !this.componentRef ) {
+      return;
+    }
+    this.componentRef.instance.formMessages = messages;
+    this.componentDetectChanges();
   }
 
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { FormErrorValidationDirective } from './directives';
 import { ControlErrorValidationDirective } from './directives';
+import { IgnoreErrorValidationDirective } from './directives';
 
 import { ControlErrorsComponent } from './components';
 import { ControlErrorComponent } from './components';
@@ -12,14 +13,18 @@ import { ErrorValidationConfig } from './configs';
   declarations: [
     FormErrorValidationDirective,
     ControlErrorValidationDirective,
+    IgnoreErrorValidationDirective,
+
     ControlErrorsComponent,
-    ControlErrorComponent
+    ControlErrorComponent,
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    ControlErrorValidationDirective
+    FormErrorValidationDirective,
+    ControlErrorValidationDirective,
+    IgnoreErrorValidationDirective
   ],
 })
 export class ErrorValidationModule {

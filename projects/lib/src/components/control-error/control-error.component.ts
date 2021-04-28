@@ -1,16 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'control-error',
   templateUrl: './control-error.component.html',
-  styleUrls: ['./control-error.component.css']
+  styleUrls: ['./control-error.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ControlErrorComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class ControlErrorComponent {
 
 }
