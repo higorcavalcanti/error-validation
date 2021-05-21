@@ -1,16 +1,4 @@
-import {
-  ComponentFactoryResolver,
-  ComponentRef,
-  Directive,
-  DoCheck,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChange,
-  SimpleChanges,
-  ViewContainerRef
-} from '@angular/core';
+import { ComponentFactoryResolver, ComponentRef, Directive, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges, ViewContainerRef } from '@angular/core';
 import { AbstractControl, NgControl } from '@angular/forms';
 import { ControlErrorsComponent } from '../components';
 import { ErrorValidationMessages } from '../configs';
@@ -32,7 +20,7 @@ export class ControlErrorValidationDirective implements OnInit, OnDestroy, OnCha
 
   formValidationMessages: ErrorValidationMessages;
 
-  private componentRef: ComponentRef<ControlErrorsComponent>;
+  componentRef: ComponentRef<ControlErrorsComponent>;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -41,7 +29,6 @@ export class ControlErrorValidationDirective implements OnInit, OnDestroy, OnCha
   ) { }
 
   ngOnInit(): void {
-    // this.initValidate();
   }
 
   ngOnDestroy(): void {
@@ -61,9 +48,14 @@ export class ControlErrorValidationDirective implements OnInit, OnDestroy, OnCha
   }
 
   checkErrorValidationChanges(errorValidation: SimpleChange): void {
-    if ( errorValidation?.currentValue != null && errorValidation?.previousValue == null ) {
+    if ( !errorValidation ) {
+      return;
+    }
+
+    if ( errorValidation.currentValue != null && errorValidation.previousValue == null ) {
       this.initValidate();
-    } else if ( errorValidation?.currentValue == null && errorValidation?.previousValue != null ) {
+    }
+    if ( errorValidation.currentValue == null && errorValidation.previousValue != null ) {
       this.stopValidate();
     }
   }
@@ -83,6 +75,7 @@ export class ControlErrorValidationDirective implements OnInit, OnDestroy, OnCha
 
   stopValidate(): void {
     this.componentRef?.destroy();
+    this.componentRef = undefined;
   }
 
   componentDetectChanges(): void {
@@ -94,6 +87,7 @@ export class ControlErrorValidationDirective implements OnInit, OnDestroy, OnCha
       return;
     }
     this.componentRef.instance.controlMessages = this.errorValidationMessages;
+    this.componentDetectChanges();
   }
 
   setFormMessages(messages: ErrorValidationMessages): void {
