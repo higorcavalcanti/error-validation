@@ -7,7 +7,14 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "lib:build": "ng build lib --prod",
+    "lib:publish": "cd dist/lib && npm publish",
+    "lib:pack": "cd dist/lib && npm pack",
+    "copy:readme": "npx cpx README.md dist/lib",
+    "copy:docs": "npx cpx docs/**/* dist/lib/docs",
+    "copy:all": "npm run copy:readme && npm run copy:docs",
+    "package": "npm run lib:build && npm run copy:all && npm run lib:publish"
   },
   "private": true,
   "dependencies": {

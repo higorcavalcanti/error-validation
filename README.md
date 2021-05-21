@@ -3,7 +3,7 @@
 Essa biblioteca oferece uma maneira bastante simples de mostrar os erros de validação de um formulário.
 Sem precisar ficar repetindo códigos, e de uma maneira bastante customizável.
 
-![Demo](docs/images/validation.gif?raw=true "Demo")
+![Demo](https://github.com/higorcavalcanti/error-validation/blob/master/docs/images/validation.gif?raw=true "Demo")
 
 
 ## Instalação
