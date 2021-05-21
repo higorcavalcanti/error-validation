@@ -97,7 +97,6 @@ export class ControlErrorValidationDirective implements OnInit, OnDestroy, OnCha
   }
 
   setFormMessages(messages: ErrorValidationMessages): void {
-    console.log('setFormMessages', messages);
     this.formValidationMessages = messages;
 
     if ( !this.componentRef ) {
