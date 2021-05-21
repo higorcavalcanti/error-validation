@@ -1,7 +1,7 @@
 import { ComponentFactoryResolver, ComponentRef, Directive, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges, ViewContainerRef } from '@angular/core';
 import { AbstractControl, NgControl } from '@angular/forms';
 import { ControlErrorsComponent } from '../components';
-import { ErrorValidationMessages } from '../configs';
+import { ErrorValidationConfig, ErrorValidationMessages } from '../configs';
 
 // tslint:disable-next-line:no-conflicting-lifecycle
 @Directive({
@@ -26,9 +26,13 @@ export class ControlErrorValidationDirective implements OnInit, OnDestroy, OnCha
     private componentFactoryResolver: ComponentFactoryResolver,
     private viewContainer: ViewContainerRef,
     private control: NgControl,
+    private config: ErrorValidationConfig,
   ) { }
 
   ngOnInit(): void {
+    if ( this.config.validateAllInputs ) {
+      this.initValidate();
+    }
   }
 
   ngOnDestroy(): void {
