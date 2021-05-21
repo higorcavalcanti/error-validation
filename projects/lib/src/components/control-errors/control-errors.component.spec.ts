@@ -1,29 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { ControlErrorsComponent } from './control-errors.component';
 import { ErrorValidationConfig } from '../../configs';
 
 describe('ControlErrorsComponent', () => {
-  let component: ControlErrorsComponent;
-  let fixture: ComponentFixture<ControlErrorsComponent>;
+  let spectator: Spectator<ControlErrorsComponent>;
+  const createComponent = createComponentFactory(ControlErrorsComponent);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ControlErrorsComponent ],
-      providers: [
-        { provide: ErrorValidationConfig, useValue: new ErrorValidationConfig() }
-      ]
-    })
-    .compileComponents();
-  });
+  beforeEach(() => spectator = createComponent({
+    providers: [
+      { provide: ErrorValidationConfig, useValue: new ErrorValidationConfig() }
+    ]
+  }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ControlErrorsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create a instance', () => {
+    expect(spectator).toBeTruthy();
   });
 });

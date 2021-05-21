@@ -1,25 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { ControlErrorComponent } from './control-error.component';
 
 describe('ControlErrorComponent', () => {
-  let component: ControlErrorComponent;
-  let fixture: ComponentFixture<ControlErrorComponent>;
+  let spectator: Spectator<ControlErrorComponent>;
+  const createComponent = createComponentFactory(ControlErrorComponent);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ControlErrorComponent ]
-    })
-    .compileComponents();
-  });
+  beforeEach(() => spectator = createComponent());
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ControlErrorComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create a instance', () => {
+    expect(spectator).toBeTruthy();
   });
 });

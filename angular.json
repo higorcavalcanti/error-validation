@@ -132,7 +132,8 @@
             "styles": [
               "projects/demo/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "codeCoverage": true
           }
         },
         "lint": {
