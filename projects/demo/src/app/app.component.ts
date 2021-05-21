@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
       input3: [null, [Validators.required, Validators.min(10)]],
       input4: [null, [Validators.required, Validators.minLength(10), Validators.email]]
     });
-    this.validate();
   }
 
   validate(): void {
