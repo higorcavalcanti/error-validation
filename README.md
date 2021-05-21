@@ -1,27 +1,95 @@
-# ErrorValidation
+## Sobre
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.5.
+Essa biblioteca oferece uma maneira bastante simples de mostrar os erros de validação de um formulário.
+Sem precisar ficar repetindo códigos, e de uma maneira bastante customizável.
 
-## Development server
+![Demo](docs/images/validation.gif?raw=true "Demo")
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Instalação
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Instale a biblioteca: `npm i @higorcavalcanti/error-validation`
+- Atualize o `AppModule` e adicione o `ErrorValidationModule` na seção de `imports`:
 
-## Build
+```ts
+@NgModule({
+  declarations: [ AppComponent ],
+  imports: [
+    // ...
+    ErrorValidationModule.forRoot({
+      messages: {
+        required: 'Required field!',
+        email: 'Invalid Email!',
+        min: ({actual, min}) => `Value ${actual} must be higher than ${min}`
+      }
+    }),
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## Configurações
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### validateAllInputs
+Por padrão, será validado todos os formulários do sistema.
+É possível desativar a validação automática alterando a propriedade `validateAllInputs: false` 
+ao importar o `ErrorValidationModule` no `AppModule`:
 
-## Running end-to-end tests
+```ts
+// ...
+ErrorValidationModule.forRoot({
+  validateAllInputs: false,
+  messages: { ... }
+})
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Dessa forma, será necessário utilizar em todos os formulários que se desejar validar a diretiva `errorValidation`:
+```html
+<form [formGroup]="form" errorValidation> <!-- Observe a diretiva -->
+  <div>
+    <label for="input1">Input1: </label>
+    <input type="text" formControlName="input1" id="input1"/>
+  </div>
 
-## Further help
+  <div>
+    <label for="input2">Input2: </label>
+    <input type="text" formControlName="input2" id="input2"/>
+  </div>
+</form>
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### maxErrors
+
+Também é possível limitar a quantidade de erros que são exibidos por vêz.
+Por padrão, serão exibidos todos os erros.
+Bastando apenas alterar a propriedade `maxErrors: number`:
+```ts
+// ...
+ErrorValidationModule.forRoot({
+  maxErrors: 1, // ou null para mostrar todos
+  messages: { ... }
+})
+```
+
+
+### Desativando a validação de inputs específicos
+
+Também é possível desativar a validação de apenas alguns inputs.
+Bastando apenas utilizar a diretiva `ignoreErrorValidation` no input desejado:
+
+```html
+<form [formGroup]="form">
+  <div>
+    <label for="input1">Input com validação: </label>
+    <input type="text" formControlName="input1" id="input1"/>
+  </div>
+
+  <div>
+    <label for="input2">Input sem validação: </label>
+    <input type="text" formControlName="input2" id="input2" ignoreErrorValidation/> <!-- Observe a diretiva -->
+  </div>
+</form>
+```

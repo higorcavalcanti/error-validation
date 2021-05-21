@@ -1,22 +1,27 @@
-<form [formGroup]="form" errorValidation>
+<form [formGroup]="form">
   <div>
-    <label for="input1">No Validation</label>
+    <label for="input1">No Validation: </label>
     <input type="text" formControlName="input1" id="input1"/>
   </div>
 
   <div>
-    <label for="input2">Required</label>
+    <label for="input2">Required: </label>
     <input type="text" formControlName="input2" id="input2"/>
   </div>
 
   <div>
-    <label for="input3">Min 10</label>
-    <input type="number" formControlName="input3" id="input3"/>
+    <label for="input2">Required (not validate): </label>
+    <input type="text" formControlName="input3" id="input3" ignoreErrorValidation/>
   </div>
 
   <div>
-    <label for="input4">Email, Minlenght 10</label>
-    <input type="text" formControlName="input4" id="input4"/>
+    <label for="input3">Min 10: </label>
+    <input type="number" formControlName="input4" id="input4"/>
+  </div>
+
+  <div>
+    <label for="input4">Email, Minlenght 10: </label>
+    <input type="text" formControlName="input5" id="input5"/>
   </div>
 
   <div>

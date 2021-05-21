@@ -17,8 +17,8 @@ import { RouterModule } from '@angular/router';
         messages: {
           required: 'Required field!',
           email: 'Invalid Email!',
-          min: ({actual, min}) => `Value ${actual} must be higher than ${min}`,
-          minlength: 'minlength error message',
+          min: ({actual, min}) => `Value ${actual} must be higher than ${min}!`,
+          minlength: ({ _actualLength, requiredLength }) => `Field needs at least ${requiredLength} characters!`,
         }
       })
     ,
